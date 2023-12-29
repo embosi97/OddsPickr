@@ -63,7 +63,7 @@ public class OddsPickrServiceImpl implements OddsPickrService {
                                             .homeTeam(String.valueOf(response.getArray().getJSONObject(index).get("home_team")))
                                             .awayTeam(String.valueOf(response.getArray().getJSONObject(index).get("away_team")))
                                             .eventTime(ZonedDateTime.parse(String.valueOf(response.getArray().getJSONObject(index)
-                                                    .get("commence_time")), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX")))
+                                                    .get("commence_time")), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX")).toString())
                                             .oddsMap(getAllOdds(((JSONArray) response.getArray().getJSONObject(index).get("bookmakers"))))
                                             .build()
                             );

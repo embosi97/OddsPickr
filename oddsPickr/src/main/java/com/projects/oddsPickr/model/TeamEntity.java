@@ -24,7 +24,7 @@ public class TeamEntity {
 
     private String awayTeam;
 
-    private ZonedDateTime eventTime;
+    private String eventTime;
 
     private Map<String, OddsObject> oddsMap;
 

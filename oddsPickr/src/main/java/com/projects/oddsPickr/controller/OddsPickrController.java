@@ -2,7 +2,6 @@ package com.projects.oddsPickr.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.projects.oddsPickr.enums.SportEnum;
 import com.projects.oddsPickr.model.TeamEntity;
 import com.projects.oddsPickr.service.OddsPickrServiceImpl;
@@ -25,12 +24,12 @@ public class OddsPickrController {
     public OddsPickrServiceImpl service;
 
     @CrossOrigin("*")
-    @GetMapping(value = "/{region}/{sport}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{region}/{sport}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ArrayList<TeamEntity> displayEventsBySport(@PathVariable("sport") String theSport, @PathVariable("region") String theRegion) throws JsonProcessingException {
 
-        //        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
 //
-//        objectMapper.registerModule(new JavaTimeModule());
 //
 //        objectMapper.writeValueAsString(entities.get(0));
 
