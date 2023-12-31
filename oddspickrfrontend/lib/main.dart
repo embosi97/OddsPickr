@@ -22,7 +22,20 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Stack(children: <Widget>[
+      home: 
+        Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: 
+            AppBar(title: const Center(child: Text("OddsPickr.co")),
+            backgroundColor:const Color.fromARGB(255, 252, 201, 91),
+            leading: Tab(icon: Image.asset("lib/images/oddsPickrLogo.png", fit: BoxFit.fitWidth), text: null),
+          actions: [
+            IconButton(onPressed: () => {},
+             icon: const Icon(Icons.menu)
+             ),
+          ],
+        ),
+        body: Stack(children: <Widget>[
       Container(
         padding: const EdgeInsets.all(15),
         width: MediaQuery.of(context).size.width,
@@ -35,21 +48,21 @@ class MyHomePage extends StatelessWidget {
                 children: <Widget>[
                   const Expanded(
                     flex: 1,
-                    child: Text(
-                      "Event Watch List",
+                    child: Center(child: Text(
+                      "Upcoming Events",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 30,
                           fontWeight: FontWeight.bold),
-                    ),
+                    ),),
                   ),
                   Expanded(
                     flex: 1,
                     child: Text(
                       DateTime.now().toString(),
                       textAlign: TextAlign.right,
-                      style: TextStyle(
-                          color: Colors.grey[500],
+                      style: const TextStyle(
+                          color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
                     ),
@@ -62,8 +75,8 @@ class MyHomePage extends StatelessWidget {
                   Text(
                    DateTime.now().toString(),
                     textAlign: TextAlign.right,
-                    style: TextStyle(
-                        color: Colors.grey[500],
+                    style: const TextStyle(
+                        color: Colors.white,
                         fontSize: 24,
                         fontWeight: FontWeight.bold),
                   ),
@@ -92,6 +105,6 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       )
-    ]));
+    ])));
   }
 }

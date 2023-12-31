@@ -1,7 +1,7 @@
 class OddsObject {
-  const OddsObject({required this.homeTeam, required this.awayTeam});
+  const OddsObject({required this.homeOdds, required this.awayOdds});
 
-  final String homeTeam;
+  final String homeOdds;
 
-  final String awayTeam;
+  final String awayOdds;
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:oddspickrfrontend/team_entity.dart';
 
@@ -8,21 +7,27 @@ class HttpService {
   final String entityURL = "http://localhost:8080/upcoming/us/epl";
 
   Future<List<TeamEntity>> getEntities() async {
-
-    Response res = await get(Uri.parse(entityURL));
-
-    if (res.statusCode == 200) {
-      
-      final obj = jsonDecode(res.body);
-
-      debugPrint(obj.toString());
   
-      return (obj as List).map((p) => TeamEntity.fromJson(p)).toList();
+  Response res = await get(Uri.parse(entityURL));
 
-    } else {
+  if (res.statusCode == 200) {
 
-      throw "Unable to retrieve stock data.";
+    final obj = jsonDecode(res.body);
 
+    final data = <TeamEntity>[];
+    
+    for(final x in obj){
+      try{
+
+        final team = TeamEntity.fromJson(x);
+        data.add(team);
+      }catch (e){
+        print('$e');
+      }
     }
+    return data;
+  } else {
+    throw "Unable to retrieve stock data.";
   }
+}
 }

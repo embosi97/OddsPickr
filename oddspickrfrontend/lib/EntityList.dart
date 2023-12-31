@@ -12,9 +12,10 @@ class EntityList extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
-        return ListView.separated(
+         return Scaffold(
+          body: ListView.separated(
                 separatorBuilder: (context, index) {
-            return Divider(color: Colors.grey[400]);
+            return const Divider(color: Color.fromARGB(255, 104, 103, 103));
         },
         itemCount: entities.length,
                 itemBuilder: (context, index) {
@@ -28,19 +29,19 @@ class EntityList extends StatelessWidget {
                     children: <Widget>[
             Text("${event.homeTeam} vs ${event.awayTeam}",
                     style: const TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 24,
                     fontWeight: FontWeight.w500)),
-            Text(event.eventTime,
-                    style: const TextStyle(color: Colors.white, fontSize: 20))
+            Text("Upcoming",
+                    style: const TextStyle(color: Colors.black, fontSize: 20))
               ]),
             trailing: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
             Text(
-                    event.sportName,
+                    event.eventTime,
                     style: const TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 24,
                     fontWeight: FontWeight.w500),
               ),
@@ -50,11 +51,11 @@ class EntityList extends StatelessWidget {
                     height: 20,
                     decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: const Color.fromARGB(255, 247, 247, 247)),
+                    color: Colors.black),
             child: const Text(
                     "Upcoming",
                     style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 15,
                   ),
                 ),
@@ -63,6 +64,7 @@ class EntityList extends StatelessWidget {
           ),
         );
         },
-    );
+    )
+         );
     }
 }

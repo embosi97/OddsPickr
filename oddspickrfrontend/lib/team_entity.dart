@@ -14,15 +14,22 @@ class TeamEntity {
 
   final String eventTime;
 
-  final Map<String, OddsObject> oddsMap;
+  final Map<String, dynamic> oddsMap;
 
-  factory TeamEntity.fromJson(Map<String, dynamic> json) {
+  factory TeamEntity.fromJson(dynamic json) {
+
+    Map<String, dynamic> oddsObjectMap = {};
+
+    (json['oddsMap'] as Map).forEach((key, value) {
+        oddsObjectMap[key] = OddsObject(homeOdds: value['homeOdds'], awayOdds: value['awayOdds']);
+    });
+
     return TeamEntity(
         eventId: json['eventId'],
         sportName: json['sportName'],
         homeTeam: json['homeTeam'],
         awayTeam: json['awayTeam'],
         eventTime: json['eventTime'],
-        oddsMap: json['oddsMap']);
+        oddsMap: oddsObjectMap);
   }
 }
