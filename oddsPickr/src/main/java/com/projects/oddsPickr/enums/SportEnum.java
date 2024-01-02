@@ -7,8 +7,8 @@ public enum SportEnum {
 
     nfl("americanfootball_nfl"),
     epl("soccer_epl"),
-    la_liga("soccer_spain_la_liga"),
-    serie_a("soccer_italy_serie_a"),
+    laliga("soccer_spain_la_liga"),
+    seriea("soccer_italy_serie_a"),
     mls("soccer_usa_mls"),
     boxing("boxing_boxing"),
     mlb("baseball_mlb"),

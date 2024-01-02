@@ -12,6 +12,8 @@ import java.util.Map;
 public interface OddsPickrService {
     ArrayList<TeamEntity> displayOdds(final String sport, final String region);
 
+    TeamEntity getEventById(final String sport, final String region, final String eventId);
+
     Map<String, OddsObject> getAllOdds(final JSONArray jsonArray);
 
     float convertPayoutCurrency(final float bet, final String odds, final String currentCurr, final String targetCurr);

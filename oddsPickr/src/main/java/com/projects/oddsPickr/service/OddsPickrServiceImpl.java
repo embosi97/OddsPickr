@@ -73,10 +73,43 @@ public class OddsPickrServiceImpl implements OddsPickrService {
                         }
                     });
 
+            return entityArrayList;
+
         } catch (UnirestException e) {
             log.info("Invalid URL.");
+            throw new RuntimeException(e);
         }
-        return entityArrayList;
+    }
+
+    @Override
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public TeamEntity getEventById(String sport, String region, String eventId) {
+
+        try {
+
+            final JsonNode response = Unirest
+                    .get(String.valueOf(UriComponentsBuilder.fromUriString(oddsApiUrl).path("{sport}/events/{eventId}/odds")
+                            .queryParams(new LinkedMultiValueMap() {{
+                                put("apiKey", Collections.singletonList(apiKey));
+                                put("regions", Collections.singletonList(region));
+                            }})
+                            .build(sport, eventId, String.class)))
+                    .asJson().getBody();
+
+            return TeamEntity.builder()
+                    .eventId(String.valueOf(response.getObject().get("id")))
+                    .sportName(String.valueOf(response.getObject().get("sport_title")))
+                    .homeTeam(String.valueOf(response.getObject().get("home_team")))
+                    .awayTeam(String.valueOf(response.getObject().get("away_team")))
+                    .eventTime(ZonedDateTime.parse(String.valueOf(response.getObject()
+                            .get("commence_time")), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX")).toString())
+                    .oddsMap(getAllOdds(((JSONArray) response.getObject().get("bookmakers"))))
+                    .build();
+
+        } catch (UnirestException e) {
+            log.info("Invalid URL.");
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -96,6 +129,7 @@ public class OddsPickrServiceImpl implements OddsPickrService {
                                                         .build()
                                         );
                             } catch (JSONException e) {
+                                log.info("Error occurred while retrieving odds for event.");
                                 throw new RuntimeException();
                             }
                         }
