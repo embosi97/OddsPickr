@@ -10,9 +10,9 @@ import java.util.Map;
 
 @Service
 public interface OddsPickrService {
-    ArrayList<TeamEntity> displayOdds(final String sport, final String region);
+    ArrayList<TeamEntity> displayOdds(final String sport, final String region, final String markets);
 
-    TeamEntity getEventById(final String sport, final String region, final String eventId);
+    TeamEntity getEventById(final String sport, final String region, final String eventId, final String markets);
 
     Map<String, OddsObject> getAllOdds(final JSONArray jsonArray);
 

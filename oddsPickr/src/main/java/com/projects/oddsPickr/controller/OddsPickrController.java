@@ -1,15 +1,12 @@
 package com.projects.oddsPickr.controller;
 
+import com.projects.oddsPickr.enums.MarketsEnum;
 import com.projects.oddsPickr.enums.SportEnum;
 import com.projects.oddsPickr.model.TeamEntity;
 import com.projects.oddsPickr.service.OddsPickrServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -22,11 +19,17 @@ public class OddsPickrController {
     @Autowired
     public OddsPickrServiceImpl service;
 
-    @GetMapping(value = "/{region}/{sport}",
+    @GetMapping(value = "/{region}/{sport}/odds/{markets}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ArrayList<TeamEntity> displayEventsBySport(@PathVariable("sport") String theSport, @PathVariable("region") String theRegion) {
+    public ArrayList<TeamEntity> displayEventsBySport(@PathVariable("sport") String theSport,
+                                                      @PathVariable("region") String theRegion,
+                                                      @PathVariable("markets") String markets) {
 
-        return service.displayOdds(Objects.requireNonNull(SportEnum.fromValue(theSport)).getSport(), theRegion);
+        return service.displayOdds(
+                Objects.requireNonNull(SportEnum.fromValue(theSport)).getSport(),
+                theRegion,
+                Objects.requireNonNull(MarketsEnum.fromValues(markets)).toString()
+        );
 
 //        String payout = service.payoutAsString(service.convertPayoutCurrency(500, teamEntities.get(0).getOddsMap().get("FanDuel").getHomeOdds(), "USD", "GBP"), "GBP");
 
@@ -36,11 +39,19 @@ public class OddsPickrController {
 
     }
 
-    @GetMapping(value = "/{region}/{sport}/events/{eventId}",
+    @GetMapping(value = "/{region}/{sport}/events/{eventId}/odds/{markets}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public TeamEntity findEventById(@PathVariable("sport") String theSport, @PathVariable("region") String theRegion, @PathVariable("eventId") String eventId) {
+    public TeamEntity findEventById(@PathVariable("sport") String theSport,
+                                    @PathVariable("region") String theRegion,
+                                    @PathVariable("eventId") String eventId,
+                                    @PathVariable("markets") String markets) {
 
-        return service.getEventById(Objects.requireNonNull(SportEnum.fromValue(theSport)).getSport(), theRegion, eventId);
+        return service.getEventById(
+                Objects.requireNonNull(SportEnum.fromValue(theSport)).getSport(),
+                theRegion,
+                eventId,
+                Objects.requireNonNull(MarketsEnum.fromValues(markets)).toString()
+        );
 
     }
 }

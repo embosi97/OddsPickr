@@ -38,7 +38,7 @@ public class OddsPickrServiceImpl implements OddsPickrService {
 
     @Override
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public ArrayList<TeamEntity> displayOdds(String sport, String region) {
+    public ArrayList<TeamEntity> displayOdds(String sport, String region, String markets) {
 
         ArrayList<TeamEntity> entityArrayList = new ArrayList<>();
 
@@ -50,6 +50,7 @@ public class OddsPickrServiceImpl implements OddsPickrService {
                             .queryParams(new LinkedMultiValueMap() {{
                                 put("apiKey", Collections.singletonList(apiKey));
                                 put("regions", Collections.singletonList(region));
+                                put("markets", Collections.singletonList(markets));
                             }})
                             .build(sport, String.class)))
                     .asJson()
@@ -59,7 +60,8 @@ public class OddsPickrServiceImpl implements OddsPickrService {
                     .forEach(index -> {
                         try {
                             entityArrayList.add(
-                                    TeamEntity.builder()
+                                    TeamEntity
+                                            .builder()
                                             .eventId(String.valueOf(response.getArray().getJSONObject(index).get("id")))
                                             .sportName(String.valueOf(response.getArray().getJSONObject(index).get("sport_title")))
                                             .homeTeam(String.valueOf(response.getArray().getJSONObject(index).get("home_team")))
@@ -85,22 +87,25 @@ public class OddsPickrServiceImpl implements OddsPickrService {
 
     @Override
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public TeamEntity getEventById(String sport, String region, String eventId) {
+    public TeamEntity getEventById(String sport, String region, String eventId, String markets) {
 
         try {
 
             final JsonNode response = Unirest
-                    .get(String.valueOf(UriComponentsBuilder.fromUriString(oddsApiUrl)
+                    .get(String
+                            .valueOf(UriComponentsBuilder.fromUriString(oddsApiUrl)
                             .path("{sport}/events/{eventId}/odds")
                             .queryParams(new LinkedMultiValueMap() {{
                                 put("apiKey", Collections.singletonList(apiKey));
                                 put("regions", Collections.singletonList(region));
+                                put("markets", Collections.singletonList(markets));
                             }})
                             .build(sport, eventId, String.class)))
                     .asJson()
                     .getBody();
 
-            return TeamEntity.builder()
+            return TeamEntity
+                    .builder()
                     .eventId(String.valueOf(response.getObject().get("id")))
                     .sportName(String.valueOf(response.getObject().get("sport_title")))
                     .homeTeam(String.valueOf(response.getObject().get("home_team")))
@@ -118,14 +123,17 @@ public class OddsPickrServiceImpl implements OddsPickrService {
 
     @Override
     public Map<String, OddsObject> getAllOdds(JSONArray jsonArray) {
+
         HashMap<String, OddsObject> oddsObjectHashMap = new HashMap<>();
+
         IntStream.range(0, jsonArray.length()
                 )
                 .forEach(index -> {
                             try {
                                 oddsObjectHashMap
                                         .put(String.valueOf(jsonArray.getJSONObject(index).get("title")),
-                                                OddsObject.builder()
+                                                OddsObject
+                                                        .builder()
                                                         .homeOdds(String.valueOf(jsonArray.getJSONObject(index).getJSONArray("markets")
                                                                 .getJSONObject(0).getJSONArray("outcomes").getJSONObject(0).get("price")))
                                                         .awayOdds(String.valueOf(jsonArray.getJSONObject(index).getJSONArray("markets")
@@ -147,7 +155,8 @@ public class OddsPickrServiceImpl implements OddsPickrService {
 
         try {
 
-            return Monetary.getDefaultAmountFactory()
+            return Monetary
+                    .getDefaultAmountFactory()
                     .setCurrency(currentCurr)
                     .setNumber(bet * Float.parseFloat(odds))
                     .create()
