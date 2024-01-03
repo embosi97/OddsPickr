@@ -45,13 +45,15 @@ public class OddsPickrServiceImpl implements OddsPickrService {
         try {
 
             final JsonNode response = Unirest
-                    .get(String.valueOf(UriComponentsBuilder.fromUriString(oddsApiUrl).path("{sport}/odds/")
+                    .get(String.valueOf(UriComponentsBuilder.fromUriString(oddsApiUrl)
+                            .path("{sport}/odds/")
                             .queryParams(new LinkedMultiValueMap() {{
                                 put("apiKey", Collections.singletonList(apiKey));
                                 put("regions", Collections.singletonList(region));
                             }})
                             .build(sport, String.class)))
-                    .asJson().getBody();
+                    .asJson()
+                    .getBody();
 
             IntStream.range(0, response.getArray().length())
                     .forEach(index -> {
@@ -88,13 +90,15 @@ public class OddsPickrServiceImpl implements OddsPickrService {
         try {
 
             final JsonNode response = Unirest
-                    .get(String.valueOf(UriComponentsBuilder.fromUriString(oddsApiUrl).path("{sport}/events/{eventId}/odds")
+                    .get(String.valueOf(UriComponentsBuilder.fromUriString(oddsApiUrl)
+                            .path("{sport}/events/{eventId}/odds")
                             .queryParams(new LinkedMultiValueMap() {{
                                 put("apiKey", Collections.singletonList(apiKey));
                                 put("regions", Collections.singletonList(region));
                             }})
                             .build(sport, eventId, String.class)))
-                    .asJson().getBody();
+                    .asJson()
+                    .getBody();
 
             return TeamEntity.builder()
                     .eventId(String.valueOf(response.getObject().get("id")))
@@ -160,7 +164,10 @@ public class OddsPickrServiceImpl implements OddsPickrService {
     @Override
     public String payoutAsString(final float payout, final String targetCurr) {
 
-        return Currency.getInstance(targetCurr).getSymbol().concat(String.valueOf(payout));
+        return Currency
+                .getInstance(targetCurr)
+                .getSymbol()
+                .concat(String.valueOf(payout));
     }
 }
 
