@@ -4,14 +4,14 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.projects.oddsPickr.model.OddsObject;
-import org.json.JSONException;
-import org.json.JSONArray;
-import org.springframework.beans.factory.annotation.Value;
+import com.projects.oddsPickr.model.TeamEntity;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.projects.oddsPickr.model.TeamEntity;
 
 import javax.money.Monetary;
 import javax.money.UnknownCurrencyException;
@@ -94,13 +94,13 @@ public class OddsPickrServiceImpl implements OddsPickrService {
             final JsonNode response = Unirest
                     .get(String
                             .valueOf(UriComponentsBuilder.fromUriString(oddsApiUrl)
-                            .path("{sport}/events/{eventId}/odds")
-                            .queryParams(new LinkedMultiValueMap() {{
-                                put("apiKey", Collections.singletonList(apiKey));
-                                put("regions", Collections.singletonList(region));
-                                put("markets", Collections.singletonList(markets));
-                            }})
-                            .build(sport, eventId, String.class)))
+                                    .path("{sport}/events/{eventId}/odds")
+                                    .queryParams(new LinkedMultiValueMap() {{
+                                        put("apiKey", Collections.singletonList(apiKey));
+                                        put("regions", Collections.singletonList(region));
+                                        put("markets", Collections.singletonList(markets));
+                                    }})
+                                    .build(sport, eventId, String.class)))
                     .asJson()
                     .getBody();
 
