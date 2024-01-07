@@ -37,12 +37,6 @@ public class OddsPickrController {
                 Objects.isNull(marketsValue) ? "h2h" : marketsValue.toString()
         );
 
-//        String payout = service.payoutAsString(service.convertPayoutCurrency(500, teamEntities.get(0).getOddsMap().get("FanDuel").getHomeOdds(), "USD", "GBP"), "GBP");
-
-//        String payout = service.payoutAsString(service.convertPayoutCurrency(500, "2.6", "USD", "GBP"), "EUR");
-
-//        System.out.println(payout);
-
     }
 
     @GetMapping(value = {"/{region}/{sport}/events/{eventId}/odds/{markets}", "/{region}/{sport}/events/{eventId}/odds", "/{region}/{sport}/events/{eventId}/odds/"},
