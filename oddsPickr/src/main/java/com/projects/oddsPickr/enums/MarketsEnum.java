@@ -3,7 +3,6 @@ package com.projects.oddsPickr.enums;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 public enum MarketsEnum {
@@ -23,8 +22,6 @@ public enum MarketsEnum {
     }
 
     public static MarketsEnum fromValues(String key) {
-
-        if (Objects.isNull(key)) return null;
 
         for (MarketsEnum me : MarketsEnum.values()) {
             if (me.getMarkets().contains(key)) {

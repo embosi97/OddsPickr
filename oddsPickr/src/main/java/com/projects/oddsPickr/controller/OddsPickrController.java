@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController()
@@ -23,15 +24,14 @@ public class OddsPickrController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ArrayList<TeamEntity> displayEventsBySport(@PathVariable("sport") String theSport,
                                                       @PathVariable("region") String theRegion,
-                                                      @PathVariable(name = "markets", required = false) String markets) {
+                                                      @PathVariable(name = "markets", required = false) Optional<String> markets) {
 
-        Object marketsValue = MarketsEnum.fromValues(markets);
-
-        return service.displayOdds(
-                Objects.requireNonNull(SportEnum.fromValue(theSport)).getSport(),
-                theRegion,
-                Objects.isNull(marketsValue) ? "h2h" : marketsValue.toString()
-        );
+        return service
+                .displayOdds(
+                        Objects.requireNonNull(SportEnum.fromValue(theSport)).getSport(),
+                        theRegion,
+                        markets.isPresent() ? Objects.requireNonNull(MarketsEnum.fromValues(markets.get())).toString() : "h2h"
+                );
 
     }
 
@@ -40,16 +40,15 @@ public class OddsPickrController {
     public TeamEntity findEventById(@PathVariable("sport") String theSport,
                                     @PathVariable("region") String theRegion,
                                     @PathVariable("eventId") String eventId,
-                                    @PathVariable(name = "markets", required = false) String markets) {
+                                    @PathVariable(name = "markets", required = false) Optional<String> markets) {
 
-        Object marketsValue = MarketsEnum.fromValues(markets);
-
-        return service.getEventById(
-                Objects.requireNonNull(SportEnum.fromValue(theSport)).getSport(),
-                theRegion,
-                eventId,
-                Objects.isNull(marketsValue) ? "h2h" : marketsValue.toString()
-        );
+        return service
+                .getEventById(
+                        Objects.requireNonNull(SportEnum.fromValue(theSport)).getSport(),
+                        theRegion,
+                        eventId,
+                        markets.isPresent() ? Objects.requireNonNull(MarketsEnum.fromValues(markets.get())).toString() : "h2h"
+                );
 
     }
 }

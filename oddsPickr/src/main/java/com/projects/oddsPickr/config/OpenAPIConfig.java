@@ -44,6 +44,8 @@ public class OpenAPIConfig {
             }
     )
     @GetMapping
-    public String get(){ return "Get Mapping";}
+    public String get() {
+        return "Get Mapping";
+    }
 
 }
