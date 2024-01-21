@@ -20,7 +20,7 @@ public class OddsPickrController {
     @Autowired
     public OddsPickrServiceImpl service;
 
-    @GetMapping(value = {"/{region}/{sport}/odds/{markets}", "/{region}/{sport}/odds/**"},
+    @GetMapping(value = {"/{region}/{sport}/odds/{markets}", "/{region}/{sport}/odds/"},
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ArrayList<TeamEntity> displayEventsBySport(@PathVariable("sport") String theSport,
                                                       @PathVariable("region") String theRegion,
@@ -35,7 +35,7 @@ public class OddsPickrController {
 
     }
 
-    @GetMapping(value = {"/{region}/{sport}/events/{eventId}/odds/{markets}", "/{region}/{sport}/events/{eventId}/odds/**"},
+    @GetMapping(value = {"/{region}/{sport}/events/{eventId}/odds/{markets}", "/{region}/{sport}/events/{eventId}/odds/"},
             produces = MediaType.APPLICATION_JSON_VALUE)
     public TeamEntity findEventById(@PathVariable("sport") String theSport,
                                     @PathVariable("region") String theRegion,

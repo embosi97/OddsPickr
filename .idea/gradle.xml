@@ -6,7 +6,7 @@
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/oddsPickr" />
         <option name="gradleHome" value="$USER_HOME$/Downloads/gradle-8.5-bin/gradle-8.5" />
-        <option name="gradleJvm" value="openjdk-20" />
+        <option name="gradleJvm" value="corretto-18" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/oddsPickr" />
@@ -30,6 +30,7 @@
         <option name="gradleJvm" value="corretto-18" />
         <option name="modules">
           <set>
+            <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-2.24.2/android" />
             <option value="$PROJECT_DIR$/oddspickrfrontend/android" />
             <option value="$PROJECT_DIR$/oddspickrfrontend/android/app" />
             <option value="$PROJECT_DIR$/../flutter/flutter_windows_3.16.0-stable/flutter/packages/flutter_tools/gradle" />
